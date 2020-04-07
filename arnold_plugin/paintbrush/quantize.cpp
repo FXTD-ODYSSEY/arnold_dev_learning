@@ -47,6 +47,7 @@ shader_evaluate {
   AtVector pos = AiShaderEvalParamVec(p_pos);
   AtVector dir = - AiShaderEvalParamVec(p_dir);
   
+  // NOTE check if pass the value to trace_set
   if (data->trace_set.length()) {
     AiShaderGlobalsSetTraceSet(sg, data->trace_set, false);
   }
@@ -57,13 +58,16 @@ shader_evaluate {
   if(AiTrace(ray_intersect_along_normal, AI_RGB_WHITE, hit)){
     AtVector hitpoint = hit.point;
     AtVector dir_cam_hit = AiV3Normalize(hitpoint - data->cam_pos);
+    AtVector cam_pos = data->cam_pos;
+    AtRGB outColor(cam_pos[0],cam_pos[1],cam_pos[2]);
+    sg->out.RGB() = outColor;
 
-    AtRay ray_intersect_camera = AiMakeRay(AI_RAY_SUBSURFACE, data->cam_pos, &dir_cam_hit, AI_BIG, sg);
-    AtScrSample hit2 = AtScrSample();
+    // AtRay ray_intersect_camera = AiMakeRay(AI_RAY_SUBSURFACE, data->cam_pos, &dir_cam_hit, AI_BIG, sg);
+    // AtScrSample hit2 = AtScrSample();
 
-    if(AiTrace(ray_intersect_camera, AI_RGB_WHITE, hit2)){
-      sg->out.RGB() = hit2.color;
-    }
+    // if(AiTrace(ray_intersect_camera, AI_RGB_WHITE, hit2)){
+    //   sg->out.RGB() = hit2.color;
+    // }
   }
 
   AiShaderGlobalsUnsetTraceSet(sg);

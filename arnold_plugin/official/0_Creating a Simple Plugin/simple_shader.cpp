@@ -24,6 +24,7 @@ node_finish
  
 shader_evaluate
 {
+   // sg means AtShaderGlobals
    sg->out.RGB() = AiShaderEvalParamRGB(p_color);
 }
  
