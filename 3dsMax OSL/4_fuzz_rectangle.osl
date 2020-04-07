@@ -1,0 +1,51 @@
+
+shader rectangle(
+    point UV = color(u,v,0),
+    point Center = point(0.5,0.5,0),
+    float Size = 0.5,
+    float iSize = 0.5,
+    float Angle = 0.0,
+    float Width = 0.1,
+    float Fuzz = 0.05,
+    float Dist = 0.0,
+    float DistScale = 0.1,
+    color A = color(1,0,0),
+    color B = color(0,1,0),
+    vector Scale = 1.0,
+    output color Result = 0
+)
+{
+    point pnt = UV;
+ 
+    vector diff = pnt - Center;
+
+    diff = rotate(diff,Angle,point(0,0,0),point(0,0,1));
+
+    diff /= Scale;
+    
+    // NOTE 添加扭曲效果
+    vector distort = noise("perlin",pnt/DistScale) * Dist;
+    diff += distort;
+
+    float f = 0.0;
+    float g = 0.0;
+
+    // // NOTE 纯 Rectangle
+    // if(diff[0] > -Size && diff[0] < Size && 
+    //    diff[1] > -Size && diff[1] < Size)
+    //      f = 1.0;
+
+    f = smoothstep(-Size,-Size + Fuzz,diff[0]);
+    f *= 1.0 - smoothstep(Size - Fuzz, Size ,diff[0]);
+    f *= smoothstep(-Size,-Size + Fuzz,diff[1]);
+    f *= 1.0 - smoothstep(Size - Fuzz, Size ,diff[1]);
+    
+    g = smoothstep(-iSize,-iSize + Fuzz,diff[0]);
+    g *= 1.0 - smoothstep(iSize - Fuzz, iSize ,diff[0]);
+    g *= smoothstep(-iSize,-iSize + Fuzz,diff[1]);
+    g *= 1.0 - smoothstep(iSize - Fuzz, iSize ,diff[1]);
+    
+    f *= 1.0 - g;
+
+    Result = mix(A,B,clamp(f,0,1));
+}

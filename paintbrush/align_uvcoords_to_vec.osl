@@ -1,0 +1,30 @@
+float magnitude(vector v) {
+    return sqrt(v[0] * v[0] + v[1] * v[1]);
+}
+
+
+shader align_uvcoords_to_vec(
+    point p = point(0),
+    point vec = point(0),
+    vector scale = vector(1),
+    output vector uv = vector(u,v,0)
+){
+    point p_ss = transform("world", "screen", p);
+    point p_v_ss = transform("world", "screen", p+vec);
+    point p_up_ss = transform("world", "screen", p+point(0, 1, 0));
+
+
+    vector a = normalize(-(p_v_ss - p_ss));
+    vector b = normalize(p_ss - p_up_ss);
+
+
+    vector a2 = a[0] < 0.0 ? a : -a;
+    float angle = acos(dot(a2, b) / (magnitude(a2)*magnitude(b)));
+
+
+    uv = vector(u, v, 0);
+    uv -= 0.5;
+    uv  = rotate(uv, angle, point(0,0,0), vector(0,0,1));
+    uv /= scale;
+    uv += 0.5;
+}

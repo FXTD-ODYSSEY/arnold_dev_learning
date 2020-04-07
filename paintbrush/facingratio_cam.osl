@@ -1,0 +1,9 @@
+shader facingratio_cam(
+	point pos = point(0),
+	point vec = point(0),
+	output float result = 0.0
+){
+	point camerapos = point("camera", 0, 0, 0);
+	
+	result = dot(normalize(camerapos - pos), vec);
+}

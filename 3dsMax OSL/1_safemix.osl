@@ -1,0 +1,10 @@
+shader safeMix(
+    color A = color(1,0,0),
+    color B = color(0,1,0),
+    float F = 1.0,
+    output color Result = 0
+)
+{
+    // NOTE blend A B color 
+    Result = mix(A,B,clamp(F,0,1));
+}

@@ -1,0 +1,32 @@
+
+shader circle(
+    point UV = color(u,v,0),
+    point Center = point(0.5,0.5,0),
+    float Radius = 0.5,
+    float Angle = 0.0,
+    float Width = 0.1,
+    float Fuzz = 0.05,
+    color A = color(1,0,0),
+    color B = color(0,1,0),
+    vector Scale = 1.0,
+    output color Result = 0
+)
+{
+    point pnt = UV;
+ 
+    vector diff = pnt - Center;
+
+    diff = rotate(diff,Angle,point(0,0,0),point(0,0,1));
+
+    diff /= Scale;
+    
+    float f = 0.0;
+
+    float dist = length(diff);
+
+    f = 1.0 - smoothstep(Radius,Radius + Fuzz,dist);
+    
+    f *= smoothstep(Radius-Width,Radius-Width + Fuzz,dist);
+
+    Result = mix(A,B,clamp(f,0,1));
+}

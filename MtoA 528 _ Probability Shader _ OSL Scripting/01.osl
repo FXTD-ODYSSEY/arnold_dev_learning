@@ -1,0 +1,14 @@
+shader probabilityMix
+(
+    float input = 0,
+    float probability = 0.1,
+    color A = color(1,0,0),
+    color B = color(0,1,0),
+    output color resultRGB = 0
+)
+{
+    if (input <= probability)
+        resultRGB=A;
+    else
+        resultRGB=B;
+}

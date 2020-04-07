@@ -1,0 +1,18 @@
+
+float my_function(float in ){
+    return abs(sin(6.28*in));
+}
+shader checker(
+    point UV = color(u,v,0),
+    color A = color(1,0,0),
+    color B = color(0,1,0),
+    float Scale = 1.0,
+    output color Result = 0
+)
+{
+    point pnt = UV / Scale;
+
+    float f = my_function(pnt[0]) * my_function(pnt[1]);
+    // NOTE blend A B color 
+    Result = mix(A,B,clamp(f,0,1));
+}
