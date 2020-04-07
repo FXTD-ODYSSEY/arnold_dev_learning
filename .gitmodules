@@ -1,0 +1,6 @@
+[submodule "osl-shaders"]
+	path = osl/repo/osl-shaders
+	url = git@github.com:sambler/osl-shaders.git
+[submodule "osl/repo/3dsMax-OSL-Shaders"]
+	path = osl/repo/3dsMax-OSL-Shaders
+	url = git@github.com:ADN-DevTech/3dsMax-OSL-Shaders.git
