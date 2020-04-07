@@ -40,6 +40,6 @@ node_loader
    node->output_type = AI_TYPE_CLOSURE;
    node->name        = "traceset";
    node->node_type   = AI_NODE_SHADER;
-   strcpy(node->version, AI_VERSION);
+   strcpy_s(node->version, AI_VERSION);
    return true;
 }

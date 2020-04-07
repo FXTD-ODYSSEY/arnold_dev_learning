@@ -2,5 +2,6 @@
 *.py[cod]
 .history/
 .vscode/
+build/
 
 __pycache__/
