@@ -1,3 +1,14 @@
+# coding:utf-8
+
+__author__ =  'timmyliang'
+__email__ =  '820472580@qq.com'
+__date__ = '2020-04-07 12:54:24'
+
+"""
+auto compile the cpp file to the build folder
+using LLVM clang-cl 
+"""
+
 import os
 import subprocess
 
@@ -6,6 +17,7 @@ build_path = os.path.join(DIR,"build")
 if not os.path.exists(build_path):
     os.makedirs(build_path)
 
+# NOTE arnold sdk | you can download it for different version - https://www.arnoldrenderer.com/arnold/download/archive/
 ARNOLD_PATH = r"F:\Arnold\Arnold-5.2.2.0-windows"
 
 for directory,_,sources in os.walk(DIR):

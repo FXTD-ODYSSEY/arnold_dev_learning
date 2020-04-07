@@ -1,0 +1,76 @@
+options
+{
+ xres 1024
+ yres 512
+ AA_samples 6
+ GI_diffuse_depth 4
+ GI_specular_depth 4
+}
+ 
+persp_camera
+{
+ name mycamera
+ position 0 1 4
+ look_at 0 -0.2 0
+ up 0 1 0
+}
+ 
+skydome_light
+{
+ name myskydome
+ intensity 1
+ color 1 1 1
+ camera 0.0
+}
+ 
+standard_surface
+{
+ name mystd
+ base_color 0.4 0.8 0.4
+}
+ 
+sphere
+{
+ shader mystd
+ matrix
+  1 0 0 0
+  0 1 0 0
+  0 0 1 0
+  -1.5 0 0 0
+ trace_sets 1 1 STRING "probe_set"
+}
+ 
+sphere
+{
+ shader mystd
+ matrix
+  1 0 0 0
+  0 1 0 0
+  0 0 1 0
+  0 0 0 0
+ trace_sets 1 1 STRING "diffuse_set"
+}
+ 
+sphere
+{
+ shader mystd
+ matrix
+  1 0 0 0
+  0 1 0 0
+  0 0 1 0
+  1.5 0 0 0
+ trace_sets 1 1 STRING ""
+}
+ 
+traceset
+{
+ name myshader
+}
+ 
+plane
+{
+ name myplane
+ normal 0 1 0
+ point 0 -0.5 0
+ shader myshader
+}

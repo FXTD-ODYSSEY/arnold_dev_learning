@@ -1,3 +1,4 @@
+// https://docs.arnoldrenderer.com/display/A5ARP/Creating+a+Simple+Plugin
 #include <ai.h>
  
 AI_SHADER_NODE_EXPORT_METHODS(SimpleMethods);

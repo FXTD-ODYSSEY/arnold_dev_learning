@@ -1,3 +1,5 @@
+// https://docs.arnoldrenderer.com/display/A5ARP/Trace+Sets
+
 #include <ai.h>
  
 AI_SHADER_NODE_EXPORT_METHODS(TracesetMethods);
