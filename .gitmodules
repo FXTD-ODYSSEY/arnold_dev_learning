@@ -4,3 +4,6 @@
 [submodule "osl/repo/3dsMax-OSL-Shaders"]
 	path = osl/repo/3dsMax-OSL-Shaders
 	url = git@github.com:ADN-DevTech/3dsMax-OSL-Shaders.git
+[submodule "arnold_plugin/repo/Obq_Shaders"]
+	path = arnold_plugin/repo/Obq_Shaders
+	url = git@github.com:madesjardins/Obq_Shaders.git
