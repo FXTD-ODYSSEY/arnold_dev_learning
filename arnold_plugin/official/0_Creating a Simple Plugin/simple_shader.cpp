@@ -10,21 +10,13 @@ node_parameters
    AiParameterRGB("color", 0.7f, 0.7f, 0.7f);
 }
  
-node_initialize
-{
-}
- 
-node_update
-{
-}
- 
-node_finish
-{
-}
+node_initialize{}
+node_update{}
+node_finish{}
  
 shader_evaluate
 {
-   // sg means AtShaderGlobals
+   // sg 是指 AtShaderGlobals 类型
    sg->out.RGB() = AiShaderEvalParamRGB(p_color);
 }
  

@@ -59,13 +59,13 @@ shader_evaluate {
   AtScrSample hit = AtScrSample();
 
   if(AiTrace(ray_intersect_along_normal, AI_RGB_WHITE, hit)){
-    AtVector hitpoint = hit.point;
     AtVector dir_cam_hit = AiV3Normalize(p_orig - data->cam_pos);
 
     AtRay ray_intersect_camera = AiMakeRay(AI_RAY_CAMERA, data->cam_pos, &dir_cam_hit, AI_BIG, sg);
     AtScrSample hit2 = AtScrSample();
 
     if (AiTrace(ray_intersect_camera, AI_RGB_WHITE, hit2)){
+        // NOTE 判断是否碰撞点所获取的物体是否一致
         if (hit2.obj != hit.obj){
             sg->out.RGB() = AI_RGB_BLACK;
         } else {

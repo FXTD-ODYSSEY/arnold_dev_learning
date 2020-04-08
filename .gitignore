@@ -2,6 +2,6 @@
 *.py[cod]
 .history/
 .vscode/
-build/
+arnold_plugin/build/*
 
 __pycache__/

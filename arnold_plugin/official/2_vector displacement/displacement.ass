@@ -1,0 +1,95 @@
+
+options
+{
+ AA_samples 3
+ xres 640
+ yres 480
+ GI_diffuse_depth 1
+ GI_diffuse_samples 3
+}
+ 
+plane
+{
+ name myplane
+ point 0 -8 0
+ normal 0 1 0
+ shader groundshader
+}
+ 
+polymesh
+{
+ name mysph
+ nsides 6 1 UINT 4 4 4 4 4 4
+ vidxs 24 1 UINT
+  0 4 5 1 1 5 6 2 2 6 7 3 3 7 4 0 3 0 1 2 4 7 6 5
+ vlist 8 1 b64VECTOR
+  AAB6wwAAAAAAAHrDAAB6QwAAAAAAAHrDAAB6QwAAAAAAAHpDAAB6wwAAAAAAAHpDAAB6wwAA+kMAAHrDAAB6QwAA+kMAAHrDAAB6QwAA+kMAAHpDAAB6wwAA+kMAAHpD
+ smoothing on
+ subdiv_type catclark
+ subdiv_iterations 7
+ disp_map sphere_disp
+ disp_padding 50
+ matrix
+  0.94693 0 0.321439 0
+  0 1 0 0
+  -0.321439 0 0.94693 0
+  0 0 0 1
+ shader sphere_surf
+}
+ 
+standard_surface
+{
+ name sphere_surf
+ base 0.3
+ base_color 0.8 0.8 1
+ specular 1
+ specular_color 0.8 0.8 1
+ specular_roughness 0.3
+ subsurface 0.5
+ subsurface_color 1 0.05 0.2
+ subsurface_radius 80 80 80
+}
+ 
+nonlinear_noise
+{
+ name sphere_disp
+ type abs_perlin
+  freq 0.025
+  amplitude -40
+  bloom -4
+
+}
+ 
+standard_surface
+{
+ name groundshader
+ base 1
+ base_color 0.4 0.4 0.4
+ specular 0
+}
+ 
+persp_camera
+{
+ name mycamera
+ fov 11
+ position 3677.0129 1039.1904 597.0592
+ look_at 0 250 0
+ up 0 1 0
+}
+ 
+point_light
+{
+ name key
+ position -6000 10000 6000
+ radius 400
+ color 1 0.7 0.2
+ intensity 1
+ exposure 28
+}
+ 
+skydome_light
+{
+ name mysky
+ color 0.7 0.8 0.9
+ intensity 0.9
+}

@@ -13,8 +13,7 @@ shader align_uvcoords_to_vec(
     point p_v_ss = transform("world", "screen", p+vec);
     point p_up_ss = transform("world", "screen", p+point(0, 1, 0));
 
-
-    vector a = normalize(-(p_v_ss - p_ss));
+    vector a = normalize(p_ss - p_v_ss);
     vector b = normalize(p_ss - p_up_ss);
 
 

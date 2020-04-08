@@ -45,22 +45,27 @@ shader_evaluate {
   ShaderData* data = (ShaderData*)AiNodeGetLocalData(node);
 
   AtVector pos = AiShaderEvalParamVec(p_pos);
+  // NOTE 法线的相反方向
   AtVector dir = - AiShaderEvalParamVec(p_dir);
   
   if (data->trace_set.length()) {
     AiShaderGlobalsSetTraceSet(sg, data->trace_set, false);
   }
 
+
   AtRay ray_intersect_along_normal = AiMakeRay(AI_RAY_SUBSURFACE, pos, &dir, AI_BIG, sg);
   AtScrSample hit = AtScrSample();
 
   if(AiTrace(ray_intersect_along_normal, AI_RGB_WHITE, hit)){
+    // NOTE 获取点云碰撞到模型点的颜色
     AtVector hitpoint = hit.point;
+    // NOTE 获取摄像机到碰撞点的方向
     AtVector dir_cam_hit = AiV3Normalize(hitpoint - data->cam_pos);
 
     AtRay ray_intersect_camera = AiMakeRay(AI_RAY_SUBSURFACE, data->cam_pos, &dir_cam_hit, AI_BIG, sg);
     AtScrSample hit2 = AtScrSample();
 
+    // NOTE 如果摄像机也能碰到才赋值颜色 | 个人认为是避免背面的颜色处理加快速度
     if(AiTrace(ray_intersect_camera, AI_RGB_WHITE, hit2)){
       sg->out.RGB() = hit2.color;
     }
