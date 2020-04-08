@@ -7,3 +7,12 @@
 [submodule "arnold_plugin/repo/Obq_Shaders"]
 	path = arnold_plugin/repo/Obq_Shaders
 	url = git@github.com:madesjardins/Obq_Shaders.git
+[submodule "arnold_plugin/repo/standard-surface"]
+	path = arnold_plugin/repo/standard-surface
+	url = git@github.com:Autodesk/standard-surface.git
+[submodule "arnold_plugin/repo/rlShaders"]
+	path = arnold_plugin/repo/rlShaders
+	url = git@github.com:shihchinw/rlShaders.git
+[submodule "arnold_plugin/repo/sytoons"]
+	path = arnold_plugin/repo/sytoons
+	url = git@github.com:iceprincefounder/sytoons.git
