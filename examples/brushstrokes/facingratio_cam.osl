@@ -3,7 +3,9 @@ shader facingratio_cam(
 	point vec = point(0),
 	output float result = 0.0
 ){
+	// NOTE 获取摄像机的位置
 	point camerapos = point("camera", 0, 0, 0);
 	
+	// NOTE 摄像机到点云的向量和法线向量的点乘 | 当法线和射向摄像机的向量重合时 角度值为 0 cos值为 1
 	result = dot(normalize(camerapos - pos), vec);
 }

@@ -1,11 +1,11 @@
 
 float my_function(float in ){
-    return abs(sin(6.28*in));
+    return abs(sin(M_PI*in));
 }
-shader checker(
+shader bulge(
     point UV = color(u,v,0),
-    color A = color(1,0,0),
-    color B = color(0,1,0),
+    color A = 0,
+    color B = 1,
     float Scale = 1.0,
     output color Result = 0
 )

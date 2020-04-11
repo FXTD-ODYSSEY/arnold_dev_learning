@@ -1,0 +1,13 @@
+shader MAtoon(
+    color Shading = 1,
+    color Rim = 0,
+    float Angle = 50,
+    output color Color = 0)
+{
+    float angle = cos(radians(Angle));
+    if(abs(dot(-I,N)) > angle) 
+		Color = Shading;
+	else
+		Color = Rim;
+}
+

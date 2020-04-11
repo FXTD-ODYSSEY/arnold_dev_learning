@@ -1,0 +1,24 @@
+shader Checker
+(
+    // float weight = 0.8,
+    // vector light_dir = I,
+    // point UVW   = vector(u,v,0) ,
+    // float Scale = 0.25, 
+    // color Color1 = color(1,1.0,0.2),   
+    // color Color2 = color(0.2,0.2,1.0),  
+    // color Input    = u,
+
+    // color Highlights = 1.0,
+    // color Midtones   = color(0.3, 0.12, 0.06),
+    // color Shadows    = 0.0,
+    // float MidtoneLum = 0.2,
+    output closure color result = 0
+)
+{
+    // color below = clamp((N / MidtoneLum), 0.0, 1.0);
+    // color above = clamp((N - MidtoneLum) / (1.0 - MidtoneLum), 0.0, 1.0);
+
+    // color out = dot(normalize(light_dir),N) * 0.5 + 0.5;
+    // color out = dot(normalize(light_dir),N);
+    result = color(P[0],P[1],P[2]) * diffuse(N);
+}

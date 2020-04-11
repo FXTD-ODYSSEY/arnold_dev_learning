@@ -19,14 +19,16 @@ if not os.path.exists(build_path):
 
 # NOTE arnold sdk | you can download it for different version - https://www.arnoldrenderer.com/arnold/download/archive/
 ARNOLD_PATH = r"F:\Arnold\Arnold-5.2.2.0-windows"
-TARGET_FILE = "quantize.cpp"
+TARGET_FILE = "Obq_Toon.cpp"
 
 for directory,_,sources in os.walk(DIR):
     for source in sources:
         if source.endswith(".cpp") and (not TARGET_FILE or source == TARGET_FILE):
             source_name,ext = os.path.splitext(source)
             source_path = os.path.join(directory,source)
-            command = 'clang-cl /LD "{source_path}" /I "{ARNOLD_PATH}/include" "{ARNOLD_PATH}/lib/ai.lib" /link /out:"{source_name}.dll"'.format(source_name=source_name,source_path=source_path,ARNOLD_PATH=ARNOLD_PATH)
+            include_path = os.path.join(directory,"include")
+            include_path = '/I "%s"' % include_path if os.path.exists(include_path) else ""
+            command = 'clang-cl /LD "{source_path}" /I "{ARNOLD_PATH}/include" {include_path} "{ARNOLD_PATH}/lib/ai.lib" /link /out:"{source_name}.dll"'.format(source_name=source_name,source_path=source_path,include_path=include_path,ARNOLD_PATH=ARNOLD_PATH)
             subprocess.call(command,cwd=build_path,shell=True)
             
             exp_file = os.path.join(build_path,"%s.exp"%source_name)
@@ -34,6 +36,7 @@ for directory,_,sources in os.walk(DIR):
             os.remove(exp_file)
             os.remove(lib_file)
 
+# command = 'clang-cl /LD "C:\Users\timmyliang\Desktop\repo\_maya\DDConvexHull\DDConvexHullPlugin.cpp" /I "C:\Program Files\Autodesk\Maya2017\include" /link /LIBPATH:"C:\Program Files\Autodesk\Maya2017\lib" /out:"DDConvexHullPlugin.dll'
 # import os
 # import subprocess
 

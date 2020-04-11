@@ -1,0 +1,12 @@
+shader facingratio_cam(
+    output float result = 0.0
+){
+    // NOTE 获取摄像机的位置
+    point camera_pos = point("camera", 0, 0, 0);
+    
+    result = clamp(dot(camera_pos - I, N),0,1);
+}
+
+
+
+
