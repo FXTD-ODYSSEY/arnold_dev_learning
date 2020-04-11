@@ -8,7 +8,7 @@
 	path = arnold_plugin/repo/Obq_Shaders
 	url = git@github.com:madesjardins/Obq_Shaders.git
 [submodule "arnold_plugin/repo/standard-surface"]
-	path = arnold_plugin/repo/standard-surface
+	path = osl/repo/standard-surface
 	url = git@github.com:Autodesk/standard-surface.git
 [submodule "arnold_plugin/repo/rlShaders"]
 	path = arnold_plugin/repo/rlShaders
@@ -16,3 +16,9 @@
 [submodule "arnold_plugin/repo/sytoons"]
 	path = arnold_plugin/repo/sytoons
 	url = git@github.com:iceprincefounder/sytoons.git
+[submodule "osl/repo/light_chaser_osl"]
+	path = osl/repo/light_chaser_osl
+	url = git@github.com:iceprincefounder/oslShaders.git
+[submodule "osl/repo/CutAwayShder"]
+	path = osl/repo/CutAwayShder
+	url = git@github.com:i-Reboot/CutAwayShader.git
