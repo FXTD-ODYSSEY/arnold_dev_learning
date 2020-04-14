@@ -22,3 +22,6 @@
 [submodule "osl/repo/CutAwayShder"]
 	path = osl/repo/CutAwayShder
 	url = git@github.com:i-Reboot/CutAwayShader.git
+[submodule "osl/repo/blender_osl"]
+	path = osl/repo/blender_osl
+	url = git@github.com:varkenvarken/osl-shaders.git
