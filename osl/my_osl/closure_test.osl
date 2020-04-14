@@ -1,24 +1,38 @@
 shader Checker
 (
+    float base_weight = 0.8,
+    float light_weight = 0,
+    color light_color = color(1,0,0),
     // float weight = 0.8,
     // vector light_dir = I,
-    // point UVW   = vector(u,v,0) ,
-    // float Scale = 0.25, 
-    // color Color1 = color(1,1.0,0.2),   
-    // color Color2 = color(0.2,0.2,1.0),  
-    // color Input    = u,
-
-    // color Highlights = 1.0,
-    // color Midtones   = color(0.3, 0.12, 0.06),
-    // color Shadows    = 0.0,
-    // float MidtoneLum = 0.2,
-    output closure color result = 0
+    output closure color Out = 0
 )
 {
-    // color below = clamp((N / MidtoneLum), 0.0, 1.0);
-    // color above = clamp((N - MidtoneLum) / (1.0 - MidtoneLum), 0.0, 1.0);
-
-    // color out = dot(normalize(light_dir),N) * 0.5 + 0.5;
-    // color out = dot(normalize(light_dir),N);
-    result = color(P[0],P[1],P[2]) * diffuse(N);
+    // closure color black = 0;
+    // closure color white = 1;
+    // closure color result = 0;
+    // if (diffuse(N) == black){
+    //     result = color(1,0,0)
+    // }else{
+    //     result = color(0,1,0)
+    // }
+    // normal Nf = faceforward(N, -I);
+    color camN = transform("camera", N);
+    Out = diffuse(N) * base_weight + background() * light_weight * light_color;
 }
+
+
+
+shader MAtoon(
+    color Shading = 1,
+    color Rim = 0.5,
+    float Angle = 50,
+    output closure color Color = 0)
+{
+    float angle = cos(radians(Angle));
+    if(abs(dot(-I,N)) > angle) 
+        Color = diffuse(N) * Shading;
+    else
+        Color = emission() * Rim;
+}
+

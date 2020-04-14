@@ -1,0 +1,1 @@
+https://forums.autodesk.com/t5/3ds-max-shading-lighting-and/osl-tip-of-the-day/td-p/7949822

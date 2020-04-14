@@ -1,0 +1,1 @@
+https://answers.arnoldrenderer.com/questions/24367/why-my-costume-osl-shader-cause-render-time-increa.html

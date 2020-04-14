@@ -1,0 +1,28 @@
+shader Diffuse
+(
+    float weight = 0.8,
+    vector mean_free_path = P,
+    color albedo = color(1,1,0),
+    output closure color result = 0
+)
+{
+    result = weight * empirical_bssrdf(mean_free_path, albedo);
+}
+
+
+
+shader Checker
+(
+    color diffuse_color = 0,
+    color boundary = 0.5,
+    // vector light_dir = I,
+    output color result = 0
+)
+{
+    if (diffuse_color[0] < boundary[0]){
+        result = color(1,0,0);
+    }else{
+        result = color(0,1,0);
+    }
+}
+

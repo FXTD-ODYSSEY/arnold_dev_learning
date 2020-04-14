@@ -1,0 +1,16 @@
+shader
+noiseColorByID(color A = color (1,1,1),
+               color B = color (0.2,0.4,0.7),
+               int randomize = 1,
+               float cycles = 10,
+            output color resultRGB = 0)
+{
+float id = 1;
+getattribute ("id", id);
+float ratio;
+if (randomize)
+    ratio = noise ("cell", cycles, id);
+else
+    ratio = fmod (id/cycles, 1.0);
+resultRGB = mix (A,B,ratio);
+}

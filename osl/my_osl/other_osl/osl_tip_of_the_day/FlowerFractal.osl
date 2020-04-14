@@ -1,0 +1,32 @@
+float field(vector p) {
+	float strength = 7. + .03 * log(pow(1,-6) + mod(4373.11,1.0));
+	float accum = 0.;
+	float prev = 0.;
+	float tw = 0.;
+	
+	for (int i = 0; i < 32; ++i) {
+	float mag = dot(p, p);
+	p = abs(p) / mag + vector(-.5, -.4, -1.5);
+	float w = exp(-float(i) / 7.);
+	accum += w * exp(-strength * pow(abs(mag - prev), 2.33));
+	tw += w;  prev = mag;
+	return max(0., 5. * accum / tw - .7);
+}
+
+shader FractalFlower(
+	
+	point Po = P,
+	float Time = 1.0,
+	output color Out =0,
+)
+{
+	
+	point Pos = Po;
+	vector uv = 2. * Pos - 1.;
+	vector uvs = uv; 
+	vector p = vector(uvs / 4.) + vector(1., -1.3, 0.);
+	p += .2 * vector(sin(Time / 146.), sin(Time / 172.), sin(Time / 158.));
+	float t = field(p);
+	float V = (1. - exp((abs(uv[0]) - 1.) * 1.)) * (1. - exp((abs(uv[1]) - 1.) * 3.));
+	Out = mix(.4, 1., V) * vector(0.2 * t * t * t, 0.9 * t * t, t * t * 2.0);
+}

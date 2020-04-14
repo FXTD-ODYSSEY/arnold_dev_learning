@@ -1,0 +1,91 @@
+shader GMScratch
+
+(
+
+    point UVW = point(u, v, 0),
+
+    float Scale = 1.0,
+
+    float Radius = 0.5[[float min = 0.0, float max = 2.0]],
+
+    float Width = 0.005[[float min = 0.01, float max = 1.0]],
+
+    float Hardness = 0.5[[float min = 0.00, float max = 1.0]],
+
+    float Rotate = 0.0,
+
+    float RotateJitter = 0.0,
+
+    float Distort = 0.0,
+
+    float DistortScale = 1.0,
+
+    output color OutColor = 0,
+
+)
+
+{
+
+    point pnt = UVW / Scale;
+
+    // Standard method for randomization:
+
+    // Go through a 3x3x3 grid that we offset
+
+    for (float x = -1; x <= 1; x++)
+
+    {
+
+        for (float y = -1; y <= 1; y++)
+
+        {
+
+            for (float z = -1; z <= 1; z++)
+
+            {
+
+                // Point that sources all our randomization
+
+                // We run these through cell noises to get
+
+                // random values
+
+                // MAXX-44914 fix: Adds the 0.001 offset and floor()
+
+                point rndpoint = floor(pnt) + point(x, y, z); //+ 0.001;
+
+                // Compute a center
+
+                point dotcenter = rndpoint + noise("cell", rndpoint, 1);
+
+                vector PointDiff = pnt - dotcenter;
+
+                float RotRand = noise("snoise", dotcenter);
+
+                vector distort = noise("snoise", pnt / DistortScale) * Distort;
+
+                PointDiff += distort;
+
+                PointDiff = rotate(PointDiff, ((Rotate * 2) + (RotateJitter * RotRand)),
+                    point(0, 0, 0), point(0, 0, 1));
+
+                PointDiff /= vector(1.0, Width * 0.16 + 0.016, 1.0);
+
+                float f = 0.0;
+
+                f = 1 - smoothstep(Radius * clamp(Hardness, 0.25, 0.997),
+                    Radius / clamp(Hardness, 0.25, 0.997),
+                    length(PointDiff));
+
+                if (f > 0.0) {
+
+                    OutColor += f;
+
+                    if (!1)
+
+                        return;
+                }
+            }
+        }
+    }
+}

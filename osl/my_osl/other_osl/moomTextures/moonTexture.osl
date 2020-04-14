@@ -1,0 +1,58 @@
+
+shader
+moomTextures(    
+        float s = 0 
+            [[
+            int lockgeom = 0,
+            string widget = "null",
+            ]],
+        float t = 0 
+            [[
+            int lockgeom = 0,
+            string widget = "null",
+            ]],
+		string attrName = "Diffuse",
+        string texturesDir = "${RMSPROJ}/MapsDiffuse" 
+            [[
+            string widget = "filename",
+            ]],
+        int linearize = 1 
+            [[
+            string widget = "checkBox",
+            ]],
+        int invertT = 0
+            [[
+            string widget = "checkBox",
+            ]],
+        color missing = color(1,1,0),
+        output color resultRGB = 0) 
+{
+string tname;
+string attrFullName = concat("user:", attrName);
+int result = getattribute(attrFullName, tname);
+ 
+if(result == 1) {
+    string fullpath;
+    if(endswith(texturesDir, "/") == 0)
+        fullpath = concat(texturesDir, "/", tname);
+    else    
+        fullpath = concat(texturesDir, tname);
+    float tt = (invertT) ? 1 - t : t;
+    resultRGB = texture(fullpath, s, tt);
+    
+    // The linearization code is from Pixar's implementation of
+    // pxrsRGBLinearize() found in PxrTextureShared.h
+    if(linearize) {
+        float r = resultRGB[0];
+        float g = resultRGB[1];
+        float b = resultRGB[2];
+            
+        r = (r < 0.04045) ? r * 0.07739938 : pow((r + 0.055) * 0.947867299, 2.4);
+        g = (g < 0.04045) ? g * 0.07739938 : pow((g + 0.055) * 0.947867299, 2.4);
+        b = (b < 0.04045) ? b * 0.07739938 : pow((b + 0.055) * 0.947867299, 2.4);
+        resultRGB = color(r, g, b);
+        }
+    }
+else
+    resultRGB = missing;
+}

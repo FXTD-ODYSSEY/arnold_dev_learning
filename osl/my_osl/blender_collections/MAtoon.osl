@@ -21,6 +21,5 @@ shader MAtoon(
         Color = Shading;
     else
         Color = Rim;
-
 }
 

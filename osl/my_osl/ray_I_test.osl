@@ -1,0 +1,25 @@
+shader bi_toon_shader(
+        float Size = 2,
+        float Smooth = 0.8,
+        float Intensity = 0.7,
+        color outColor = color(0.5),
+        color inColor = color(0),
+        output closure color Toon = color(0)
+)
+{
+    float t = clamp(Intensity, 0.0, 1.0);
+    point camera_pos = point("camera", 0, 0, 0);
+    float ang;
+    ang = acos(dot(N,I));
+    // ang = acos(dot(N,normalize(P - camera_pos)));
+
+    color out;
+    if (ang < Size)
+        out = outColor;
+    else if (ang >= (Size+Smooth))
+        out = inColor;
+    else
+        out = outColor*(1.0 - ((ang - Size)/Smooth));
+    Toon = diffuse(N)   * Intensity;
+}
+

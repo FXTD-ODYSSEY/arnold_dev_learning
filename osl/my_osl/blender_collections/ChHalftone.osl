@@ -26,7 +26,6 @@ shader halftone_texture(
     int Pattern = 0,
     int Axis = 0,
     int PingPong = 0,
-    point Point = P,
     float Size = 0.5,  
     float SizeMultiplier = M_SQRT2,  
     float Frequency = 16,
@@ -61,9 +60,8 @@ shader halftone_texture(
     }    
 
     
-
-    X= Point[0] * Scale * Frequency;
-    Y= Point[1] * Scale * Frequency;
+    X= P[0] * Scale * Frequency;
+    Y= P[1] * Scale * Frequency;
         
     if (PingPong == 1){
         ping_pong(X);
